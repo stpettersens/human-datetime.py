@@ -1,0 +1,10 @@
+.dub
+*.lib
+*.exp
+*.pdb
+*.o
+*.obj
+*.lst
+*.dll
+pyd*
+tmp*
