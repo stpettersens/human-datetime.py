@@ -7,7 +7,7 @@ void hello() {
     writefln("Hello, world!");
 }
 
-extern(C) void PydMain() {
+export extern(C) void PydMain() {
     def!(hello)();
     module_init();
 }
