@@ -1,10 +1,7 @@
-.dub
+build
+venv*
 *.lib
 *.exp
 *.pdb
-*.o
-*.obj
 *.lst
-*.dll
-pyd*
-tmp*
+*.pyd
