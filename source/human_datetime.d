@@ -4,6 +4,8 @@
    Released to Public domain. Use as you wish.
 */
 
+module human_datetime;
+
 import std.uni;
 import std.stdio;
 import std.array;
@@ -11,6 +13,8 @@ import std.format;
 import std.datetime;
 import std.datetime.timezone;
 import std.conv : to;
+
+import iana : zones;
 
 struct DateTimeTZ {
     int day;
@@ -79,6 +83,7 @@ enum Tz : float {
     IDLW = -12,
     SST = -11,
     HST = -10,
+    UTC95 = -9.5,
     AKST = -9,
     PST = -8,
     MST = -7,
@@ -87,12 +92,13 @@ enum Tz : float {
     EDT = -4,
     NST = -3.5,
     ART = -3,
+    NDT = -2.5,
     GST = -2,
     CVT = -1,
     UTC = 0,
     CET = 1,
     EET = 2,
-    AST = 3,
+    AST = 3, // Arab Standard Time, use AsT for Atlantic Standard Time.
     IRST = 3.5,
     AMT = 4,
     AFT = 4.5,
@@ -103,50 +109,123 @@ enum Tz : float {
     MMT = 6.5,
     KRAT = 7,
     IRKST = 8,
+    ACWST = 8.75,
     YAKT = 9,
     ACST = 9.5,
     VLAT = 10,
     ACDT = 10.5,
     MAGT = 11,
     PET = 12,
-    CHAST = 12.75,
+    CHAsT = 12.75,
     WST = 13,
-    CHADT = 13.75
+    CHADT = 13.75,
+    LINT = 14
+}
+
+bool in_summer_time(string iana_timezone, int month) {
+    if (month > 3 && month < 11)
+        return true;
+
+    return false;
+}
+
+Tz get_timezone_from_iana(string iana_timezone, int month) {
+    try {
+        if (in_summer_time(iana_timezone, month)) {
+            return get_timezone(zones[iana_timezone].summer);
+        }
+        return get_timezone(zones[iana_timezone].tz);
+    }
+    catch (Exception e) {
+        writefln("Invalid IANA timezone: %s", iana_timezone);
+        if (in_summer_time("Europe/London", month)) {
+            return Tz.CET;
+        }
+        return Tz.UTC;
+    }
+}
+
+string get_equivalent_timezone_str_from_iana(string iana_timezone, int month) {
+    return to!string(get_timezone_from_iana(iana_timezone, month));
+}
+
+string get_timezone_str_from_iana(string iana_timezone, int month) {
+    try {
+        if (in_summer_time(iana_timezone, month)) {
+            return to!string(zones[iana_timezone].summer);
+        }
+        return to!string(zones[iana_timezone].tz);
+    }
+    catch (Exception e) {
+        writefln("Invalid IANA timezone: %s", iana_timezone);
+        if (in_summer_time("Europe/London", month)) {
+            return "BST";
+        }
+        return to!string(Tz.UTC);
+    }
 }
 
 Tz get_timezone(string timezone) {
     Tz tz = Tz.UTC;
 
-    // Map equivalent timezones to the master Tz enum.
+    // Map equivalent timezones to the mAsTer Tz enum.
     // All - or + offsets to UTC.
-    switch (timezone.toUpper) {
+    switch (timezone) {
+        case "CKT":
+        case "TAHT":
+            tz = Tz.HST; // - 10
+            break;
+
+        case "GMT-9.5":
+        case "UTC-9.5":
+            tz = Tz.UTC95; // - 9.5
+            break;
+
         case "HDT":
+        case "GMT-9":
+        case "UTC-9":
             tz = Tz.AKST; // - 9
             break;
 
         case "AKDT":
+        case "GMT-8":
+        case "UTC-8":
             tz = Tz.PST; // - 8
             break;
 
         case "PDT":
+        case "GMT-7":
+        case "UTC-7":
             tz = Tz.MST; // - 7
             break;
 
         case "MDT":
         case "GALT":
+        case "EAsT":
+        case "GMT-6":
+        case "UTC-6":
             tz = Tz.CST; // - 6
             break;
 
         case "ACT":
         case "CDT":
         case "COT":
-        case "EASST":
+        case "EADT":
         case "ECT":
         case "PET":
+        case "GMT-5":
+        case "UTC-5":
             tz = Tz.EST; // -5
             break;
 
         case "VET":
+        case "CLDT":
+        case "PYT":
+        case "AsT": // Atlantic Standard Time
+        case "GYT":
+        case "BOT":
+        case "GMT-4":
+        case "UTC-4":
             tz = Tz.EDT; // -4
             break;
 
@@ -163,7 +242,21 @@ Tz get_timezone(string timezone) {
         case "SRT":
         case "UYT":
         case "WGST":
+        case "CLT":
+        case "GMT-3":
+        case "UTC-3":
             tz = Tz.ART; // -3
+            break;
+
+        case "WGT":
+        case "FNT":
+        case "PMDT":
+            tz = Tz.GST; // -2
+            break;
+
+        case "AZOT":
+        case "EGT":
+            tz = Tz.CVT; // -1
             break;
 
         case "Z":
@@ -171,22 +264,44 @@ Tz get_timezone(string timezone) {
         case "WET":
         case "AZOST":
         case "EGST":
+        case "GMT-0":
+        case "GMT+0":
+        case "UTC-0":
+        case "UTC+0":
             tz = Tz.UTC; // 0
             break;
 
         case "BST":
         case "WAT":
         case "WEST":
+        case "IsT": // Irish Standard Time
+        case "MET":
+        case "GMT+1":
+        case "UTC+1":
             tz = Tz.CET; // + 1
             break;
 
+        case "CAT":
         case "CEST":
         case "KALT":
+        case "SAST":
+        case "WAST":
+        case "EGY":
+        case "MEST":
+        case "GMT+2":
+        case "UTC+2":
             tz = Tz.EET; // + 2
             break;
 
         case "EEST":
         case "MSK":
+        case "IDT":
+        case "FET":
+        case "EGYST":
+        case "TRT":
+        case "EAT":
+        case "GMT+3":
+        case "UTC+3":
             tz = Tz.AST; // + 3
             break;
 
@@ -198,6 +313,9 @@ Tz get_timezone(string timezone) {
         case "SAMT":
         case "SCT":
         case "VOLT":
+        case "MSK+1":
+        case "GMT+4":
+        case "UTC+4":
             tz = Tz.AMT; // + 4
             break;
 
@@ -210,19 +328,39 @@ Tz get_timezone(string timezone) {
         case "TMT":
         case "UZT":
         case "YEKT":
+        case "QYZT":
+        case "GMT+5":
+        case "UTC+5":
             tz = Tz.PKT; // + 5
+            break;
+
+        case "SLST":
+            tz = Tz.IST; // + 5.5
             break;
 
         case "BTT":
         case "XJT":
         case "KGT":
+        case "IOT":
+        case "GMT+6":
+        case "UTC+6":
             tz = Tz.OMST; // + 6
+            break;
+
+        case "GMT+6.5":
+        case "UTC+6.5":
+            tz = Tz.MMT; // + 6.5
             break;
 
         case "ICT":
         case "IWST":
         case "HOVT":
         case "NOVT":
+        case "WIB":
+        case "DAVT":
+        case "CXT":
+        case "GMT+7":
+        case "UTC+7":
             tz = Tz.KRAT; // + 7
             break;
 
@@ -234,8 +372,13 @@ Tz get_timezone(string timezone) {
         case "CHOT":
         case "ULAT":
         case "PHT":
-        case "SST":
         case "TST":
+        case "WITA":
+        case "SGT":
+        case "HKT":
+        case "IRKT":
+        case "GMT+8":
+        case "UTC+8":
             tz = Tz.IRKST; // + 8
             break;
 
@@ -244,12 +387,19 @@ Tz get_timezone(string timezone) {
         case "JST":
         case "PWT":
         case "KST":
+        case "WIT":
+        case "GMT+9":
+        case "UTC+9":
             tz = Tz.YAKT; // + 9
             break;
 
         case "AEST":
         case "CHUT":
         case "PGT":
+        case "ChST":
+        case "DDUT":
+        case "GMT+10":
+        case "UTC+10":
             tz = Tz.VLAT; // + 10
             break;
 
@@ -257,22 +407,55 @@ Tz get_timezone(string timezone) {
         case "LHST":
         case "PONT":
         case "SAKT":
+        case "SRET":
         case "SBT":
         case "VUT":
+        case "NFT":
+        case "LHDT":
+        case "KOST":
+        case "NUT":
+        case "NCT":
+        case "GMT+11":
+        case "UTC+11":
             tz = Tz.MAGT; // + 11
             break;
 
+        case "PETT":
         case "FJT":
         case "GILT":
         case "MHT":
         case "NRT":
         case "TVT":
+        case "NFDT":
+        case "ANAT":
+        case "WFT":
+        case "NZST":
+        case "GMT+12":
+        case "UTC+12":
             tz = Tz.PET; // + 12
+            break;
+
+        case "GMT+12.75":
+        case "UTC+12.75":
+            tz = tz.CHAsT; // + 12.75
             break;
 
         case "NZDT":
         case "TOT":
+        case "TKT":
+        case "GMT+13":
+        case "UTC+13":
             tz = Tz.WST; // + 13
+            break;
+
+        case "GMT+13.75":
+        case "UTC+13.75":
+            tz = Tz.CHADT; // + 13.75
+            break;
+
+         case "GMT+14":
+         case "UTC+14":
+            tz = Tz.LINT; // + 14
             break;
 
         default: // Resolve as is.
@@ -550,6 +733,10 @@ string convert_datetime_to_timezone(string human_datetime, string target_timezon
     return convert_datetime_to_timezone(human_datetime, HumanDateStyle.DD_MON_YYYY, target_timezone);
 }
 
+string convert_datetime_str_to_timezone(string human_datetime, string target_timezone) {
+    return convert_datetime_to_timezone(human_datetime, target_timezone);
+}
+
 string isoformat_to_timezone(string isoformat, string target_timezone) {
     return convert_datetime_to_timezone(isoformat, HumanDateStyle.ISO_FORMAT, target_timezone);
 }
@@ -578,6 +765,10 @@ int human_datetime_summary(string human_datetime, HumanDateStyle style) {
 }
 
 int human_datetime_summary(string human_datetime) {
+    return human_datetime_summary(human_datetime, HumanDateStyle.DD_MON_YYYY);
+}
+
+int human_datetime_str_summary(string human_datetime) {
     return human_datetime_summary(human_datetime, HumanDateStyle.DD_MON_YYYY);
 }
 
