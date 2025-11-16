@@ -201,7 +201,7 @@ Tz get_timezone(string timezone) {
 
         case "MDT":
         case "GALT":
-        case "EAsT":
+        case "EAST":
         case "GMT-6":
         case "UTC-6":
             tz = Tz.CST; // - 6
