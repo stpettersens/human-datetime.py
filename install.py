@@ -15,8 +15,8 @@ if __name__ == "__main__":
 
         arch = subprocess.check_output(['uname', '-m'], text=True).strip()
 
-    _dir = os.path.join('/home', getuser(), '.local', 'uv', 'python',
-    f'cpython-3.13.{patch}-linux-{arch}-{clib}', 'Lib', 'site-packages')
+    _dir = os.path.join('/home', getuser(), '.local', 'share', 'uv', 'python',
+    f'cpython-3.13.{patch}-linux-{arch}-{clib}', 'lib', 'python3.13', 'site-packages')
     extp = '*.so'
     if os.name == 'nt':
         _dir = os.path.join('C:\\', 'Dev', 'Python313', 'Lib', 'site-packages')
