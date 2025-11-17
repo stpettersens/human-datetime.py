@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     for ext in glob(extp):
         if shutil.which('dumpbin') is not None:
-            os.system(f'dumpbin /exports {pyd} | findstr PyInit_human_datetime_py')
+            os.system(f'dumpbin /exports {ext} | findstr PyInit_human_datetime_py')
         try:
             shutil.copy(ext, os.path.join(_dir, ext))
 
