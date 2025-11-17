@@ -38,7 +38,7 @@ WORKDIR /usr/app
 # Also build it and install it to site_packages
 COPY requirements_ext.txt ./
 COPY *.py ./
-COPY source/*.d ./source
+COPY source/*.d ./source/
 RUN uv venv /usr/app/.venv && uv pip install -r requirements_ext.txt
 ENV VIRTUAL_ENV=/usr/app/.venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
