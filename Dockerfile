@@ -28,10 +28,13 @@ WORKDIR /usr/app
 COPY requirements_ext.txt ./
 COPY *.py ./
 COPY source/*.d ./source
+RUN uv venv venv
+RUN source venv/bin/activate
 RUN uv pip install -r requirements_ext.txt
 COPY libpython3.13.a ./
 RUN uv run setup.py build_ext --inplace
 RUN uv run install.py
+RUN deactivate
 
 # Run test app.
 CMD [ "uv", "run", "test_ext.py" ]
