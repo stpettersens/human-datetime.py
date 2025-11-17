@@ -5,7 +5,7 @@ import subprocess
 if __name__ == "__main__":
     patch = '9'
     if os.name == 'posix':
-        if os.system('cat /etc/os-release | grep alpine') == 0:
+        if os.system('grep alpine /etc/os-release > /dev/null') == 0:
             patch = '5'
 
     lib = os.path.join('/opt', 'python', f'3.13.{patch}', 'lib', 'libpython3.13.a')

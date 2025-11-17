@@ -9,7 +9,7 @@ if __name__ == "__main__":
     arch = 'x86_64'
     patch = '9'
     if os.name == 'posix':
-        if os.system('cat /etc/os-release | grep alpine') == 0:
+        if os.system('grep alpine /etc/os-release > /dev/null') == 0:
             clib = 'musl'
             patch = '5'
 
