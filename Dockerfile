@@ -5,7 +5,7 @@ FROM alpine:latest
 
 # Install dmd compiler and uv
 RUN sed -i '2s/^# *//' /etc/apk/repositories
-RUN apk update && apk add --no-cache build-base gcc dmd uv git
+RUN apk update && apk add --no-cache build-base dmd uv git
 
 # Test gcc installed.
 RUN gcc --version

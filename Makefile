@@ -16,5 +16,8 @@ docker:
 	uv run prebuild.py
 	docker build -t human_datetime_py_img .
 
+container:
+	docker run --rm --name human_datetime_py_test human_datetime_py_img
+
 clean:
 	uv run clean.py

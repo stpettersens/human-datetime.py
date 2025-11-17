@@ -6,7 +6,7 @@ FROM alpine:latest
 
 # Install uv
 RUN sed -i '2s/^# *//' /etc/apk/repositories
-RUN apk update && apk add --no-cache build-base gcc dmd uv git
+RUN apk update && apk add --no-cache build-base dmd uv git
 
 # Expose port for clients.
 EXPOSE %port%
