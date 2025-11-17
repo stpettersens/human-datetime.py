@@ -1,15 +1,11 @@
-# This is a Dockerfile template for
-# deploying a Python application (e.g. Flask)
-# which makes use of the human_datetime_py extension.
+# This is a Dockerfile just to test using the human_datetime_py extension in a container.
 # Python 3.13 will be installed via uv as it is the version compatible with the extension.
+# For a Dockerfile template you can adapt for your application, please see Dockefile.template.
 FROM alpine:latest
 
-# Install uv
+# Install dmd compiler and uv
 RUN sed -i '2s/^# *//' /etc/apk/repositories
 RUN apk update && apk add --no-cache dmd uv
-
-# Expose port for clients.
-EXPOSE %port%
 
 # Test dmd installed.
 RUN dmd --version
@@ -24,9 +20,8 @@ RUN uv python install 3.13
 RUN uv run python --version
 
 # Create directories.
-RUN mkdir -p /usr/app
+RUN mkdir -p /usr/app/source
 WORKDIR /usr/app
-#VOLUME /usr/app
 
 # Install human_datetime_py ext module dependencies
 # We use --system because that is fine for inside a Docker container
@@ -35,12 +30,9 @@ COPY requirements_ext.txt ./
 COPY *.py ./
 COPY source/*.d ./source
 RUN uv pip install -r requirements_ext.txt --system
+COPY python3.13.a ./
 RUN uv run setup.py build_ext --inplace
 RUN uv run install.py
 
-# Install app specific dependencies
-COPY requirements.txt ./
-RUN uv pip install -r requirements.txt --system
-
-# Run actual app.
-CMD %command_here%
+# Run test app.
+CMD [ "uv", "run", "test_ext.py" ]
