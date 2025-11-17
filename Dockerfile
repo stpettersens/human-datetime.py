@@ -13,6 +13,9 @@ RUN dmd --version
 # Test uv installed.
 RUN uv --version
 
+# Test git installed.
+RUN git --version
+
 # Install Python 3.13 (compatible with the human_datetime_py ext module)
 RUN uv python install 3.13
 
