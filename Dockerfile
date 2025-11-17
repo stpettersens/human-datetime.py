@@ -5,7 +5,7 @@ FROM alpine:latest
 
 # Install dmd compiler and uv
 RUN sed -i '2s/^# *//' /etc/apk/repositories
-RUN apk update && apk add --no-cache dmd uv
+RUN apk update && apk add --no-cache dmd uv git
 
 # Test dmd installed.
 RUN dmd --version
