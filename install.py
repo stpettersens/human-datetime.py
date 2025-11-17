@@ -23,8 +23,12 @@ if __name__ == "__main__":
         extp = '*.pyd'
 
     for ext in glob(extp):
-        if shutil.which('dumpbin') is not None:
+        if os.name == 'nt' and shutil.which('dumpbin') is not None:
             os.system(f'dumpbin /exports {ext} | findstr PyInit_human_datetime_py')
+
+        elif os.name == 'posix' and shutil.which('nm') is not None:
+            os.system(f"nm -D {ext} | grep PyInit_human_datetime_py")
+
         try:
             shutil.copy(ext, os.path.join(_dir, ext))
 

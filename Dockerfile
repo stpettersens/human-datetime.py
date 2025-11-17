@@ -30,7 +30,7 @@ COPY requirements_ext.txt ./
 COPY *.py ./
 COPY source/*.d ./source
 RUN uv pip install -r requirements_ext.txt --system
-COPY python3.13.a ./
+COPY libpython3.13.a ./
 RUN uv run setup.py build_ext --inplace
 RUN uv run install.py
 
