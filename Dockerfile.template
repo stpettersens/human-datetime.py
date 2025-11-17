@@ -6,10 +6,13 @@ FROM alpine:latest
 
 # Install uv
 RUN sed -i '2s/^# *//' /etc/apk/repositories
-RUN apk update && apk add --no-cache dmd uv git
+RUN apk update && apk add --no-cache gcc dmd uv git
 
 # Expose port for clients.
 EXPOSE %port%
+
+# Test gcc installed.
+RUN gcc --version
 
 # Test dmd installed.
 RUN dmd --version
