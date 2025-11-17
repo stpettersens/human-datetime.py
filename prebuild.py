@@ -8,7 +8,7 @@ if __name__ == "__main__":
         if os.system('cat /etc/os-release | grep alpine') == 0:
             patch = '5'
 
-    lib = os.path.join('/opt', 'python', f'3.13.{patch}', 'libs', 'libpython3.13.a')
+    lib = os.path.join('/opt', 'python', f'3.13.{patch}', 'lib', 'libpython3.13.a')
     if os.name == 'nt':
         lib = os.path.join('C:\\', 'Dev', 'Python313', 'libs', 'python313.lib')
 
