@@ -40,7 +40,6 @@ RUN uv python install 3.13
 RUN uv run python --version
 
 # Install human_datetime_py ext module dependencies
-# Also build it for later copy to host via its Makefile.
 COPY requirements_ext.txt ./
 COPY *.py ./
 COPY source/*.d ./source/
@@ -50,5 +49,5 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY libpython3.13.a ./
 RUN uv run setup.py build_ext --inplace
 
-# Keep the container running so built extension can be copied to host.
-CMD [ "tail", "-f", "/dev/null" ]
+# Build it for later copy to host via its Makefile.
+CMD [ "uv", "run", "setup.py", "build_ext", "--inplace" ]

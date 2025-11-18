@@ -19,13 +19,16 @@ docker:
 container:
 	docker run --rm --name human_datetime_py_test human_datetime_py_img
 
-docker_ext:
+build_env:
 	uv run prebuild.py
-	docker build -f Dockerfile_build_for_host -t human_datetime_py_build_only .
-	docker run --rm --name human_datetime_py_built -d human_datetime_py_build_only
-	docker cp human_datetime_py_built:/usr/build/*.so .
-	docker stop human_datetime_py_built
+	docker build -f Dockerfile.build_env -t human_datetime_py_build_img .
+
+ext_docker:
+	docker run --name human_datetime_py_build_env -d human_datetime_py_build_img
+	docker cp human_datetime_py_build_env:/usr/build/*.so .
+	docker stop human_datetime_py_build_env
 	uv run install.py
+	uv run test_ext.py
 
 clean:
 	uv run clean.py

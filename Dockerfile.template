@@ -47,8 +47,8 @@ RUN uv run setup.py build_ext --inplace
 RUN uv run install.py
 
 # Install app specific dependencies
-COPY requirements.txt ./
-RUN uv pip install -r requirements.txt
+#COPY requirements.txt ./
+#RUN uv pip install -r requirements.txt
 
 # Run actual app.
-CMD %command_here%
+# CMD %command_here%
