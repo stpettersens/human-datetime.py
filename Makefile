@@ -22,7 +22,7 @@ container:
 docker_ext:
 	uv run prebuild.py
 	docker build -f Dockerfile_build_for_host -t human_datetime_py_build_only .
-	docker run --rm --name human_datetime_py_built human_datetime_py_build_only
+	docker run --rm --name human_datetime_py_built -d human_datetime_py_build_only
 	docker cp human_datetime_py_built:/usr/build/*.so .
 	docker stop human_datetime_py_built
 	uv run install.py
