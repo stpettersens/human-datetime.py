@@ -1,0 +1,54 @@
+# Dockerfile to build human-datetime.py extension in a Ubuntu x86_64 image.
+# Python 3.13 will be installed via uv as it is the version compatible with the extension.
+# I had problems building on my Void Linux (glibc) system so I created this image
+# which will produce a glibc compatible build whereas the Alpine based image produces musl.
+FROM ubuntu:latest
+
+# Install required software needed to build the extension.
+RUN apt-get update && apt-get install build-essential git wget curl
+
+# Check this an x86_64 image.
+RUN uname -m
+
+# Create build directory.
+RUN mkdir -p /usr/build
+WORKDIR /usr/build
+
+# Install dmd compiler.
+RUN wget https://downloads.dlang.org/releases/2.x/2.111.0/dmd_2.111.0-0_amd64.deb
+RUN dpkg -i dmd_2.111.0-0_amd64.deb
+
+# Install uv.
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Test gcc installed.
+RUN gcc --version
+
+# Test dmd installed.
+RUN dmd --version
+
+# Test uv installed.
+RUN uv --version
+
+# Test git installed.
+RUN git --version
+
+# Install Python 3.13 (compatible with the human_datetime_py ext module)
+RUN uv python install 3.13
+
+# Test Python installed.
+RUN uv run python --version
+
+# Install human_datetime_py ext module dependencies
+# Also build it and install it to site_packages
+COPY requirements_ext.txt ./
+COPY *.py ./
+COPY source/*.d ./source/
+RUN uv venv /usr/app/.venv && uv pip install -r requirements_ext.txt
+ENV VIRTUAL_ENV=/usr/app/.venv
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+COPY libpython3.13.a ./
+RUN uv run setup.py build_ext --inplace
+
+# Keep the container running so built extension can be copied to host.
+CMD [ "tail", "-f", "/dev/null" ]
