@@ -35,10 +35,6 @@ RUN uv python install 3.13
 # Test Python installed.
 RUN uv run python --version
 
-# Create directories.
-RUN mkdir -p /usr/app/source
-WORKDIR /usr/app
-
 # Install human_datetime_py ext module dependencies
 # Also build it and install it to site_packages
 COPY requirements_ext.txt ./

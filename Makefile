@@ -25,13 +25,15 @@ build_env_gnu: zone
 
 build_env_musl: zone
 	uv run prebuild.py
-	docker build -f Dockerfile.build_env_musl -t human_datetime_py_build_img .
+	docker build -f Dockerfile.build_env_musl -t human_datetime_py_build_img_musl .
 
 ext_gnu_docker:
-	docker run --name htdpy_build -d human_datetime_py_build_img
+	docker run --name htdpy_build_gnu -d human_datetime_py_build_img_gnu
+	docker cp htdpy_build_gnu:/usr/build/*.so .
 
-ext_gnu_docker:
-	@echo TODO
+ext_musl_docker:
+	docker run --name htdpy_build_musl -d human_datetime_py_build_img_musl
+	docker cp htdpy_build_musl:/usr/build/*.so .
 
 clean:
 	uv run clean.py
