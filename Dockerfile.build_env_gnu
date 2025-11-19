@@ -51,7 +51,7 @@ RUN uv venv /usr/build/.venv && uv pip install -r requirements_ext.txt
 ENV VIRTUAL_ENV=/usr/build/.venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY libpython3.13.a ./
-COPY build_ext.sh ./
+COPY build_ext_container.sh ./
 
 # Mark run script as executable
 RUN chmod +x build_ext_container.sh
