@@ -24,9 +24,10 @@ build_env:
 	docker build -f Dockerfile.build_env -t human_datetime_py_build_img .
 
 ext_docker:
-	docker run --name human_datetime_py_build_env -d human_datetime_py_build_img
-	docker cp human_datetime_py_build_env:/usr/build/*.so .
-	docker stop human_datetime_py_build_env
+	docker run --name htdpy_build -d human_datetime_py_build_img
+	docker cp htdpy_build:/usr/build/*.so .
+	docker stop htdpy_build
+	docker rm htdpy_build
 	uv run install.py
 	uv run test_ext.py
 
