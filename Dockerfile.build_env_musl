@@ -1,6 +1,6 @@
-# This is a Dockerfile just to test using the human_datetime_py extension in a container.
+# Dockerfile to build human-datetime.py extension with an Alpine x86_64 image.
 # Python 3.13 will be installed via uv as it is the version compatible with the extension.
-# For a Dockerfile template you can adapt for your application, please see Dockefile.template.
+# This image which will produce a musl compatible build whereas the Ubuntu based image produces glibc.
 FROM alpine:latest
 
 # Install dmd compiler and uv
