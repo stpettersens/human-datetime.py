@@ -50,5 +50,5 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY libpython3.13.a ./
 RUN uv run setup.py build_ext --inplace
 
-# Build it for later copy to host via its Makefile.
-CMD [ "uv", "run", "setup.py", "build_ext", "--inplace" ]
+# Build the extension and keep running so can be copied to host later.
+CMD [ "uv", "run", "setup.py", "build_ext", "--inplace", "&&", "tail", "-f", "/dev/null" ]
