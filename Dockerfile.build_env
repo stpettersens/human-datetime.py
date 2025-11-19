@@ -19,8 +19,8 @@ RUN wget https://downloads.dlang.org/releases/2.x/2.111.0/dmd_2.111.0-0_amd64.de
 RUN dpkg -i dmd_2.111.0-0_amd64.deb
 
 # Install uv.
+ENV UV_INSTALL_DIR=/usr/bin
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-RUN ln -s /root/.local/bin/uv/uv /usr/bin/uv
 
 # Test gcc installed.
 RUN gcc --version
@@ -44,8 +44,8 @@ RUN uv run python --version
 COPY requirements_ext.txt ./
 COPY *.py ./
 COPY source/*.d ./source/
-RUN uv venv /usr/app/.venv && uv pip install -r requirements_ext.txt
-ENV VIRTUAL_ENV=/usr/app/.venv
+RUN uv venv /usr/build/.venv && uv pip install -r requirements_ext.txt
+ENV VIRTUAL_ENV=/usr/build/.venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY libpython3.13.a ./
 RUN uv run setup.py build_ext --inplace
