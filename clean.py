@@ -2,10 +2,11 @@ import os
 from glob import glob
 
 if __name__ == "__main__":
+    extp = '*.so'
     if os.name == 'nt':
-        for pyd in glob('*.pyd'):
-            os.remove(pyd)
+        extp '*.pyd'
 
-        os.remove(os.path.join('source', 'iana.d'))
-    else:
-        print('TODO')
+    for ext in glob(extp):
+        os.remove(ext)
+
+    os.remove(os.path.join('source', 'iana.d'))

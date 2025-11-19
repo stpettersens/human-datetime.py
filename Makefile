@@ -12,21 +12,26 @@ zones:
 test:
 	uv run test_ext.py
 
-docker:
+docker: zone
 	uv run prebuild.py
 	docker build -t human_datetime_py_img .
 
 container:
 	docker run --rm --name human_datetime_py_test human_datetime_py_img
 
-build_env:
+build_env_gnu: zone
 	uv run prebuild.py
-	docker build -f Dockerfile.build_env -t human_datetime_py_build_img .
+	docker build -f Dockerfile.build_env_gnu -t human_datetime_py_build_img_gnu .
 
-ext_docker:
+build_env_musl: zone
+	uv run prebuild.py
+	docker build -f Dockerfile.build_env_musl -t human_datetime_py_build_img .
+
+ext_gnu_docker:
 	docker run --name htdpy_build -d human_datetime_py_build_img
-	uv run install.py
-	uv run test_ext.py
+
+ext_gnu_docker:
+	@echo TODO
 
 clean:
 	uv run clean.py
