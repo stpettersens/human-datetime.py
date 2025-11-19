@@ -12,18 +12,18 @@ zones:
 test:
 	uv run test_ext.py
 
-docker: zone
+docker: zones
 	uv run prebuild.py
 	docker build -t human_datetime_py_img .
 
 container:
 	docker run --rm --name human_datetime_py_test human_datetime_py_img
 
-build_env_gnu: zone
+build_env_gnu: zones
 	uv run prebuild.py
 	docker build -f Dockerfile.build_env_gnu -t human_datetime_py_build_img_gnu .
 
-build_env_musl: zone
+build_env_musl: zones
 	uv run prebuild.py
 	docker build -f Dockerfile.build_env_musl -t human_datetime_py_build_img_musl .
 
