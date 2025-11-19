@@ -5,7 +5,7 @@
 FROM ubuntu:latest
 
 # Install required software needed to build the extension.
-RUN apt-get -y update && apt-get install -y build-essential git wget curl
+RUN apt-get -y update && apt-get install -y build-essential git curl
 
 # Check this an x86_64 image.
 RUN uname -m
@@ -15,8 +15,9 @@ RUN mkdir -p /usr/build
 WORKDIR /usr/build
 
 # Install dmd compiler.
-RUN wget https://downloads.dlang.org/releases/2.x/2.111.0/dmd_2.111.0-0_amd64.deb
-RUN dpkg -i dmd_2.111.0-0_amd64.deb
+RUN mkdir -p /root/deb
+RUN curl -LsSf https://downloads.dlang.org/releases/2.x/2.111.0/dmd_2.111.0-0_amd64.deb > /root/deb/dmd.deb
+RUN dpkg -i /root/deb/dmd.deb
 
 # Install uv.
 ENV UV_INSTALL_DIR=/usr/bin
@@ -50,5 +51,5 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY libpython3.13.a ./
 COPY build_ext.sh ./
 
-# Build the extension and keep running so can be copied to host later.
+# Build the extension and keep container running.
 CMD [ "sh", "build_ext.sh" ]
