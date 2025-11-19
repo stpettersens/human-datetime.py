@@ -48,7 +48,7 @@ RUN uv venv /usr/build/.venv && uv pip install -r requirements_ext.txt
 ENV VIRTUAL_ENV=/usr/build/.venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY libpython3.13.a ./
-RUN uv run setup.py build_ext --inplace
+COPY build_ext.sh ./
 
 # Build the extension and keep running so can be copied to host later.
-CMD [ "uv", "run", "setup.py", "build_ext", "--inplace", "&&", "tail", "-f", "/dev/null" ]
+CMD [ "sh", "build_ext.sh" ]
