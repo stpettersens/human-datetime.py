@@ -29,11 +29,15 @@ build_env_musl: zones
 
 ext_gnu_docker:
 	docker run --rm --name htdpy_build_gnu -d human_datetime_py_build_img_gnu
+	sleep 10
 	docker cp htdpy_build_gnu:/usr/build/human_datetime_py.cpython-313-x86_64-linux-gnu.so .
+	docker stop htdpy_build_gnu
 
 ext_musl_docker:
 	docker run --rm --name htdpy_build_musl -d human_datetime_py_build_img_musl
+	sleep 10
 	docker cp htdpy_build_musl:/usr/build/human_datetime_py.cpython-313-x86_64-linux-musl.so .
+	docker stop htdpy_build_musl
 
 clean:
 	uv run clean.py
