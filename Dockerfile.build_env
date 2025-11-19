@@ -5,7 +5,7 @@
 FROM ubuntu:latest
 
 # Install required software needed to build the extension.
-RUN apt-get -y update && apt-get install -y build-essential git wget
+RUN apt-get -y update && apt-get install -y build-essential git wget curl
 
 # Check this an x86_64 image.
 RUN uname -m
@@ -19,8 +19,8 @@ RUN wget https://downloads.dlang.org/releases/2.x/2.111.0/dmd_2.111.0-0_amd64.de
 RUN dpkg -i dmd_2.111.0-0_amd64.deb
 
 # Install uv.
-RUN wget -qO- https://astral.sh/uv/install.sh | sh
-RUN ln -sf /root/.local/bin/uv/uv /usr/bin/uv
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+RUN ln -s /root/.local/bin/uv/uv /usr/bin/uv
 
 # Test gcc installed.
 RUN gcc --version
