@@ -25,7 +25,7 @@ build_env:
 
 ext_docker:
 	docker run --name htdpy_build -d human_datetime_py_build_img
-	docker cp htdpy_build:/usr/build/*.so .
+	docker cp htdpy_build:/usr/build/human_datetime_py.cpython-313-x86_64-linux-gnu.so .
 	docker stop htdpy_build
 	docker rm htdpy_build
 	uv run install.py
