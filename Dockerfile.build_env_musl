@@ -47,7 +47,7 @@ COPY libpython3.13.a ./
 COPY build_ext.sh ./
 
 # Mark run script as executable
-RUN chmod +x build_ext.sh
+RUN chmod +x build_ext_container.sh
 
 # Build the extension and keep container running.
 CMD ./build_ext_container.sh
