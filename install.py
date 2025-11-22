@@ -1,19 +1,18 @@
 import os
 import shutil
-import subprocess
+import platform
 from glob import glob
 from getpass import getuser
 
 if __name__ == "__main__":
     clib = 'gnu'
-    arch = 'x86_64'
     patch = '9'
     if os.name == 'posix':
         if os.system('grep alpine /etc/os-release > /dev/null') == 0:
             clib = 'musl'
             patch = '5'
 
-        arch = subprocess.check_output(['uname', '-m'], text=True).strip()
+    arch = 'x86_64' if platform.machine() == 'AMD64' else plaform.machine()
 
     _dir = os.path.join('/home', getuser(), '.local', 'share', 'uv', 'python',
     f'cpython-3.13.{patch}-linux-{arch}-{clib}', 'lib', 'python3.13', 'site-packages')

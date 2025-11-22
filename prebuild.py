@@ -1,12 +1,10 @@
 import os
 import sys
 import shutil
-import subprocess
+import platform
 
 if __name__ == "__main__":
-    arch = 'x86_64'
-    if os.name == 'posix':
-        arch = subprocess.check_output(['uname', '-m'], text=True).strip()
+    arch = 'x86_64' if platform.machine() == 'AMD64' else platform.machine()
 
     if arch != 'x86_64':
         print('Sorry, only x86_64 machines are currently supported.')
