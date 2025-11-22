@@ -2,10 +2,7 @@ import os
 from glob import glob
 
 if __name__ == "__main__":
-    extp = '*.so'
-    if os.name == 'nt':
-        extp '*.pyd'
-
+    extp = '*.pyd' if os.name == 'nt' else '*.so'
     for ext in glob(extp):
         os.remove(ext)
 

@@ -1,8 +1,8 @@
 make:
 	uv pip install -r requirements_ext.txt
-	uv run prebuild.py
 
 ext:
+	uv run prebuild.py
 	uv run setup.py build_ext --inplace
 	uv run install.py
 

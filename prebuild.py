@@ -1,8 +1,18 @@
 import os
+import sys
 import shutil
 import subprocess
 
 if __name__ == "__main__":
+    arch = 'x86_64'
+    if os.name == 'posix':
+        arch = subprocess.check_output(['uname', '-m'], text=True).strip()
+
+    if arch != 'x86_64':
+        print('Sorry, only x86_64 machines are currently supported.')
+        print(f'Your machine is {arch}.')
+        sys.exit(-1)
+
     patch = '9'
     if os.name == 'posix':
         if os.system('grep alpine /etc/os-release > /dev/null') == 0:
