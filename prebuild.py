@@ -4,7 +4,7 @@ import shutil
 import platform
 
 if __name__ == "__main__":
-    arch = 'x86_64' if platform.machine() == 'AMD64' else platform.machine()
+    arch = platform.machine()
 
     if arch != 'x86_64':
         print('Sorry, only x86_64 machines are currently supported.')

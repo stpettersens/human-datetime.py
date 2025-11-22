@@ -12,7 +12,7 @@ if __name__ == "__main__":
             clib = 'musl'
             patch = '5'
 
-    arch = 'x86_64' if platform.machine() == 'AMD64' else plaform.machine()
+    arch = plaform.machine()
 
     _dir = os.path.join('/home', getuser(), '.local', 'share', 'uv', 'python',
     f'cpython-3.13.{patch}-linux-{arch}-{clib}', 'lib', 'python3.13', 'site-packages')
