@@ -28,18 +28,18 @@ build_env_musl: zones
 	docker build -f Dockerfile.build_env_musl -t human_datetime_py_build_img_musl .
 
 ext_gnu_docker:
-	docker run --rm --name htdpy_build_gnu -d human_datetime_py_build_img_gnu
+	docker run --rm --name hdt_build_gnu -d human_datetime_py_build_img_gnu
 	sleep 5
-	docker cp htdpy_build_gnu:/usr/build/human_datetime_py.cpython-313-x86_64-linux-gnu.so .
-	docker stop htdpy_build_gnu
+	docker cp hdt_build_gnu:/usr/build/human_datetime_py.cpython-313-x86_64-linux-gnu.so .
+	docker stop hdt_build_gnu
 	uv run install.py
 	uv run test_ext.py
 
 ext_musl_docker:
-	docker run --rm --name htdpy_build_musl -d human_datetime_py_build_img_musl
+	docker run --rm --name hdt_build_musl -d human_datetime_py_build_img_musl
 	sleep 5
-	docker cp htdpy_build_musl:/usr/build/human_datetime_py.cpython-313-x86_64-linux-musl.so .
-	docker stop htdpy_build_musl
+	docker cp hdt_build_musl:/usr/build/human_datetime_py.cpython-313-x86_64-linux-musl.so .
+	docker stop hdt_build_musl
 	uv run install.py
 	uv run test_ext.py
 
