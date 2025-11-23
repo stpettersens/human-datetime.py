@@ -1,7 +1,7 @@
 make:
 	uv pip install -r requirements_ext.txt
 
-ext:
+ext: zones
 	uv run prebuild.py
 	uv run setup.py build_ext --inplace
 	uv run install.py
