@@ -5,7 +5,7 @@ if __name__ == "__main__":
     patch = '9'
     if os.name == 'posix':
         if os.system('grep alpine /etc/os-release > /dev/null') == 0:
-            patch = '5'
+            patch = '9'
 
     lib = os.path.join('/opt', 'python', f'3.13.{patch}', 'lib', 'libpython3.13.a')
     if os.name == 'nt':
