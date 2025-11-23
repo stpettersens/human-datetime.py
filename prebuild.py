@@ -1,9 +1,7 @@
 import os
 import shutil
-import platform
 
 if __name__ == "__main__":
-    arch = 'x86_64' if platform.machine() == 'AMD64' else platform.machine()
     patch = '9'
     if os.name == 'posix':
         if os.system('grep alpine /etc/os-release > /dev/null') == 0:
