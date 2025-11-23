@@ -10,7 +10,7 @@ if __name__ == "__main__":
     if os.name == 'posix':
         if os.system('grep alpine /etc/os-release > /dev/null') == 0:
             clib = 'musl'
-            patch = '5'
+            patch = '9'
 
     arch = platform.machine().lower()
 
