@@ -3,15 +3,15 @@
 # For a Dockerfile template you can adapt for your application, please see Dockefile.template.
 FROM alpine:latest
 
-# Install dmd compiler and uv
+# Install build dependencies, ldc2 compiler, uv and git
 RUN sed -i '2s/^# *//' /etc/apk/repositories
-RUN apk update && apk add --no-cache build-base dmd uv git
+RUN apk update && apk add --no-cache build-base ldc uv git
 
 # Test gcc installed.
 RUN gcc --version
 
-# Test dmd installed.
-RUN dmd --version
+# Test ldc2 installed.
+RUN ldc2 --version
 
 # Test uv installed.
 RUN uv --version
@@ -31,10 +31,10 @@ WORKDIR /usr/app
 
 # Install human_datetime_py ext module dependencies
 # Also build it and install it to site_packages
-COPY requirements_ext.txt ./
+COPY requirements_ldc.txt ./
 COPY *.py ./
 COPY source/*.d ./source/
-RUN uv venv /usr/app/.venv && uv pip install -r requirements_ext.txt
+RUN uv venv /usr/app/.venv && uv pip install -r requirements_ldc.txt
 ENV VIRTUAL_ENV=/usr/app/.venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY libpython3.13.a ./

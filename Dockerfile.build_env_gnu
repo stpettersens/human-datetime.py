@@ -1,4 +1,4 @@
-# Dockerfile to build human-datetime.py extension with a Ubuntu x86_64 image.
+# Dockerfile to build human-datetime.py extension with a Ubuntu image.
 # Python 3.13 will be installed via uv as it is the version compatible with the extension.
 # I had problems building on my Void Linux (glibc) system so I created this image
 # which will produce a GNU Lib C (glibc) compatible build whereas the Alpine based image produces musl.
@@ -6,9 +6,6 @@ FROM ubuntu:latest
 
 # Install required software needed to build the extension.
 RUN apt-get -y update && apt-get install -y build-essential bash git curl
-
-# Check this an x86_64 image.
-RUN uname -m
 
 # Create build directory.
 RUN mkdir -p /usr/build/source

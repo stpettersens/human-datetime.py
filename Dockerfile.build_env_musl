@@ -1,14 +1,11 @@
-# Dockerfile to build human-datetime.py extension with an Alpine x86_64 image.
+# Dockerfile to build human-datetime.py extension with an Alpine image.
 # Python 3.13 will be installed via uv as it is the version compatible with the extension.
 # This image which will produce a musl compatible build whereas the Ubuntu based image produces glibc.
 FROM alpine:latest
 
-# Install dmd compiler and uv
+# Install build dependencies, ldc2 compiler, uv and git
 RUN sed -i '2s/^# *//' /etc/apk/repositories
-RUN apk update && apk add --no-cache build-base bash dmd uv git
-
-# Check this an x86_64 image.
-RUN uname -m
+RUN apk update && apk add --no-cache build-base bash ldc uv git
 
 # Create build directory.
 RUN mkdir -p /usr/build/source
@@ -20,8 +17,8 @@ RUN bash --version
 # Test gcc installed.
 RUN gcc --version
 
-# Test dmd installed.
-RUN dmd --version
+# Test ldc2 installed.
+RUN ldc2 --version
 
 # Test uv installed.
 RUN uv --version

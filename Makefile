@@ -1,5 +1,10 @@
-make:
-	uv pip install -r requirements_ext.txt
+make: ldc
+
+ldc:
+	uv pip install -r requirements_ldc.txt
+
+dmd:
+	uv pip install -r requirements_dmd.txt
 
 ext: zones
 	uv run prebuild.py

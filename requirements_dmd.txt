@@ -1,0 +1,2 @@
+setuptools
+git+https://github.com/ariovistus/pyd.git # This will use DMD compiler
