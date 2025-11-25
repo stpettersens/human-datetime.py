@@ -54,4 +54,4 @@ COPY build_ext_container.sh ./
 RUN chmod +x build_ext_container.sh
 
 # Build the extension and keep container running.
-CMD ./build_ext_container.sh
+CMD [ "./build_ext_container.sh" ]

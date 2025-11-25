@@ -19,7 +19,7 @@ test:
 
 docker: zones
 	uv run prebuild.py
-	docker build -t human_datetime_py_img .
+	docker build -f Dockerfile.test -t human_datetime_py_img .
 
 container:
 	docker run --rm --name human_datetime_py_test human_datetime_py_img
