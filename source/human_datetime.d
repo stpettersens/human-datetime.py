@@ -14,7 +14,7 @@ import std.datetime;
 import std.datetime.timezone;
 import std.conv : to;
 
-import iana : zones;
+import timezones;
 
 struct DateTimeTZ {
     int day;

@@ -12,7 +12,7 @@ ext: zones
 	uv run install.py
 
 zones:
-	uv run create_iana_file.py
+	rdmd create_iana_file.d
 
 test:
 	uv run test_ext.py
