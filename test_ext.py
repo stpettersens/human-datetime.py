@@ -33,6 +33,8 @@ if __name__ == "__main__":
     print()
     print(f"The date/time for EET is {hdt.isoformat_to_timezone(isoformat, 'EET')} (isoformat).")
     print()
+    print(f"The name of the timezone for EET is {hdt.get_named_timezone('EET')}.")
+    print()
     print(shortformat)
     print(f"Unix time is {hdt.human_str_to_unix(shortformat)} from shortformat.")
     print()

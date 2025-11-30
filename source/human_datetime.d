@@ -14,7 +14,8 @@ import std.datetime;
 import std.datetime.timezone;
 import std.conv : to;
 
-import timezones;
+import iana : zones;
+import timezones : named;
 
 struct DateTimeTZ {
     int day;
@@ -165,10 +166,21 @@ string get_timezone_str_from_iana(string iana_timezone, int month) {
     }
 }
 
+string get_named_timezone(string abbreviation) {
+    try {
+        return format("%s (%s)", named[abbreviation], abbreviation);
+    }
+    catch (Exception e) {
+        writefln("Invalid named timezone for %s", abbreviation);
+    }
+    // This should not be returned if the timezone has a proper name.
+    return format("Unnamed Timezone (%s)", abbreviation);
+}
+
 Tz get_timezone(string timezone) {
     Tz tz = Tz.UTC;
 
-    // Map equivalent timezones to the mAsTer Tz enum.
+    // Map equivalent timezones to the master Tz enum.
     // All - or + offsets to UTC.
     switch (timezone) {
         case "CKT":
@@ -224,6 +236,7 @@ Tz get_timezone(string timezone) {
         case "AsT": // Atlantic Standard Time
         case "GYT":
         case "BOT":
+        case "AMt":
         case "GMT-4":
         case "UTC-4":
             tz = Tz.EDT; // -4
@@ -288,6 +301,7 @@ Tz get_timezone(string timezone) {
         case "WAST":
         case "EGY":
         case "MEST":
+        case "ISt": // Israel Standard Time
         case "GMT+2":
         case "UTC+2":
             tz = Tz.EET; // + 2
@@ -307,7 +321,7 @@ Tz get_timezone(string timezone) {
 
         case "AZT":
         case "GET":
-        case "GST":
+        case "GSt":
         case "MUT":
         case "RET":
         case "SAMT":
@@ -366,7 +380,6 @@ Tz get_timezone(string timezone) {
 
         case "AWST":
         case "BNT":
-        case "CST":
         case "ICST":
         case "MYT":
         case "CHOT":
@@ -403,8 +416,11 @@ Tz get_timezone(string timezone) {
             tz = Tz.VLAT; // + 10
             break;
 
-        case "AEDT":
         case "LHST":
+            tz = Tz.ACDT; // + 10.5
+            break;
+
+        case "AEDT":
         case "PONT":
         case "SAKT":
         case "SRET":

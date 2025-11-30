@@ -7,6 +7,7 @@ extern(C) void PydMain() {
     def!(get_equivalent_timezone_str_from_iana);
     def!(get_timezone_str_from_iana);
     def!(get_timezone_str);
+    def!(get_named_timezone);
     def!(is_leap_year);
     def!(days_in_feb);
     def!(days_in_year);

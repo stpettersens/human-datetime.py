@@ -80,12 +80,12 @@ America/Barbados,-04:00,-04:00,AsT,AsT
 America/Belem,-03:00,-03:00,BRT,BRT
 America/Belize,-06:00,-06:00,CST,CST
 America/Blanc-Sablon,-04:00,-04:00,AsT,AsT
-America/Boa_Vista,-04:00,-04:00,AMT,AMT
+America/Boa_Vista,-04:00,-04:00,AMt,AMt
 America/Bogota,-05:00,-05:00,COT,COT
 America/Boise,-07:00,-06:00,MST,MDT
 America/Buenos_Aires,-03:00,-03:00,ART,ART
 America/Cambridge_Bay,-07:00,-06:00,MST,MDT
-America/Campo_Grande,-04:00,-04:00,AMT,AMT
+America/Campo_Grande,-04:00,-04:00,AMt,AMt
 America/Cancun,-05:00,-05:00,EST,EST
 America/Caracas,-04:00,-04:00,VET,VET
 America/Catamarca,-03:00,-03:00,ART,ART
@@ -98,7 +98,7 @@ America/Coral_Harbour,-05:00,-05:00,EST,EST
 America/Cordoba,-03:00,-03:00,ART,ART
 America/Costa_Rica,-06:00,-06:00,CST,CST
 America/Creston,-07:00,-07:00,MST,MST
-America/Cuiaba,-04:00,-04:00,AMT,AMT
+America/Cuiaba,-04:00,-04:00,AMt,AMt
 America/Curacao,-04:00,-04:00,AsT,AsT
 America/Danmarkshavn,+00:00,+00:00,GMT,GMT
 America/Dawson,-07:00,-07:00,MST,MST
@@ -150,7 +150,7 @@ America/Louisville,-05:00,-04:00,EST,EDT
 America/Lower_Princes,-04:00,-04:00,AsT,AsT
 America/Maceio,-03:00,-03:00,BRT,BRT
 America/Managua,-06:00,-06:00,CST,CST
-America/Manaus,-04:00,-04:00,AMT,AMT
+America/Manaus,-04:00,-04:00,AMt,AMt
 America/Marigot,-04:00,-04:00,AsT,AsT
 America/Martinique,-04:00,-04:00,AsT,AsT
 America/Matamoros,-06:00,-05:00,CST,CDT
@@ -183,9 +183,9 @@ America/Phoenix,-07:00,-07:00,MST,MST
 America/Port-au-Prince,-05:00,-04:00,EST,EDT
 America/Port_of_Spain,-04:00,-04:00,AsT,AsT
 America/Porto_Acre,-05:00,-05:00,ACT,ACT
-America/Porto_Velho,-04:00,-04:00,AMT,AMT
+America/Porto_Velho,-04:00,-04:00,AMt,AMt
 America/Puerto_Rico,-04:00,-04:00,AsT,AsT
-America/Punta_Arenas,-03:00,-03:00,UTC -3,UTC -3
+America/Punta_Arenas,-03:00,-03:00,UTC-3,UTC-3
 America/Rainy_River,-06:00,-05:00,CST,CDT
 America/Rankin_Inlet,-06:00,-05:00,CST,CDT
 America/Recife,-03:00,-03:00,BRT,BRT
@@ -260,7 +260,7 @@ Asia/Dacca,+06:00,+06:00,BST,BST
 Asia/Damascus,+03:00,+03:00,ADT,ADT
 Asia/Dhaka,+06:00,+06:00,BST,BST
 Asia/Dili,+09:00,+09:00,TLT,TLT
-Asia/Dubai,+04:00,+04:00,GST,GST
+Asia/Dubai,+04:00,+04:00,GSt,GSt
 Asia/Dushanbe,+05:00,+05:00,TJT,TJT
 Asia/Famagusta,+02:00,+03:00,EET,EEST
 Asia/Gaza,+02:00,+03:00,EET,EEST
@@ -273,7 +273,7 @@ Asia/Irkutsk,+08:00,+08:00,IRKT,IRKT
 Asia/Istanbul,+03:00,+03:00,TRT,TRT
 Asia/Jakarta,+07:00,+07:00,WIB,WIB
 Asia/Jayapura,+09:00,+09:00,WIT,WIT
-Asia/Jerusalem,+02:00,+03:00,IST,IDT
+Asia/Jerusalem,+02:00,+03:00,ISt,IDT
 Asia/Kabul,+04:30,+04:30,AFT,AFT
 Asia/Kamchatka,+12:00,+12:00,PETT,PETT
 Asia/Karachi,+05:00,+05:00,PKT,PKT
@@ -291,7 +291,7 @@ Asia/Macau,+08:00,+08:00,CST,CST
 Asia/Magadan,+11:00,+11:00,MAGT,MAGT
 Asia/Makassar,+08:00,+08:00,WITA,WITA
 Asia/Manila,+08:00,+08:00,PST,PST
-Asia/Muscat,+04:00,+04:00,GST,GST
+Asia/Muscat,+04:00,+04:00,GSt,GSt
 Asia/Nicosia,+02:00,+03:00,EET,EEST
 Asia/Novokuznetsk,+07:00,+07:00,KRAT,KRAT
 Asia/Novosibirsk,+07:00,+07:00,NOVT,NOVT
@@ -316,7 +316,7 @@ Asia/Taipei,+08:00,+08:00,CST,CST
 Asia/Tashkent,+05:00,+05:00,UZT,UZT
 Asia/Tbilisi,+04:00,+04:00,GET,GET
 Asia/Tehran,+03:30,+03:30,IRST,IRST
-Asia/Tel_Aviv,+02:00,+03:00,IST,IDT
+Asia/Tel_Aviv,+02:00,+03:00,ISt,IDT
 Asia/Thimbu,+06:00,+06:00,BTT,BTT
 Asia/Thimphu,+06:00,+06:00,BTT,BTT
 Asia/Tokyo,+09:00,+09:00,JST,JST
@@ -369,8 +369,8 @@ Australia/West,+08:00,+08:00,AWST,AWST
 Australia/Yancowinna,+10:30,+09:30,ACDT,ACST
 Brazil/Acre,-05:00,-05:00,ACT,ACT
 Brazil/DeNoronha,-02:00,-02:00,FNT,FNT
-Brazil/EAsT,-03:00,-03:00,BRT,BRT
-Brazil/West,-04:00,-04:00,AMT,AMT
+Brazil/East,-03:00,-03:00,BRT,BRT
+Brazil/West,-04:00,-04:00,AMt,AMt
 Canada/Atlantic,-04:00,-03:00,AsT,ADT
 Canada/Central,-06:00,-05:00,CST,CDT
 Canada/Eastern,-05:00,-04:00,EST,EDT
@@ -386,7 +386,7 @@ CST6CDT,-06:00,-05:00,CST,CDT
 Cuba,-05:00,-04:00,CST,CDT
 EET,+02:00,+03:00,EET,EEST
 Egypt,+02:00,+03:00,EET,EEST
-Eire,+00:00,+01:00,GMT,IST
+Eire,+00:00,+01:00,GMT,IsT
 EST,-05:00,-05:00,EST,EST
 EST5EDT,-05:00,-04:00,EST,EDT
 Etc/GMT,+00:00,+00:00,GMT,GMT
@@ -438,7 +438,7 @@ Europe/Budapest,+01:00,+02:00,CET,CEST
 Europe/Busingen,+01:00,+02:00,CET,CEST
 Europe/Chisinau,+02:00,+03:00,EET,EEST
 Europe/Copenhagen,+01:00,+02:00,CET,CEST
-Europe/Dublin,+00:00,+01:00,GMT,IST
+Europe/Dublin,+00:00,+01:00,GMT,IsT
 Europe/Gibraltar,+01:00,+02:00,CET,CEST
 Europe/Guernsey,+00:00,+01:00,GMT,BST
 Europe/Helsinki,+02:00,+03:00,EET,EEST
@@ -510,7 +510,7 @@ Indian/Mauritius,+04:00,+04:00,UTC+4,UTC+4
 Indian/Mayotte,+03:00,+03:00,EAT,EAT
 Indian/Reunion,+04:00,+04:00,UTC+4,UTC+4
 Iran,+03:30,+03:30,IRST,IRST
-Israel,+02:00,+03:00,UTC+1,IDT
+Israel,+02:00,+03:00,ISt,IDT
 Jamaica,-05:00,-05:00,EST,EST
 Japan,+09:00,+09:00,JST,JST
 Kwajalein,+12:00,+12:00,MHT,MHT

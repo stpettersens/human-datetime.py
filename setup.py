@@ -6,6 +6,7 @@ module = Extension(
     sources=[
         path.join('source', 'human_datetime_py.d'),
         path.join('source','human_datetime.d'),
+        path.join('source', 'named.d'),
         path.join('source', 'iana.d')
     ],
     build_deimos=True,
