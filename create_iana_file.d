@@ -11,7 +11,7 @@ import std.conv : to;
 
 struct IANAZone {
     string name;
-    string tz;
+    string standard;
     string summer;
 }
 
@@ -27,8 +27,8 @@ module iana;
 
 struct IANAZone {
     string name;
-    string tz;
-    string summer;
+    string standard; // This is summer for Southern Hemisphere.
+    string summer;   // This is standard for Southern Hemisphere.
 }
 
 IANAZone[string] zones = [};
@@ -43,13 +43,13 @@ IANAZone[string] zones = [};
     }
 
     foreach (z; zones) {
-       _out ~= format("\"%s\": IANAZone(\"%s\", \"%s\", \"%s\"),", z.name, z.name, z.tz, z.summer);
+       _out ~= format("\"%s\": IANAZone(\"%s\", \"%s\", \"%s\"),", z.name, z.name, z.standard, z.summer);
     }
     _out ~= "];\n";
     std.file.write(buildPath("source", "iana.d"), _out.join("\n"));
 
-    //auto unique = uniq.sort().uniq.array;
-    //std.file.write("tz.txt", unique.join("\n"));
+    auto unique = uniq.sort().uniq.array;
+    std.file.write("tz.txt", unique.join("\n"));
 
     return 0;
 }
