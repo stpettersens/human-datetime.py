@@ -155,7 +155,7 @@ string get_timezone_str_from_iana(string iana_timezone, int month) {
         if (in_summer_time(iana_timezone, month)) {
             return to!string(zones[iana_timezone].summer);
         }
-        return to!string(zones[iana_timezone].tz);
+        return to!string(zones[iana_timezone].standard);
     }
     catch (Exception e) {
         writefln("Invalid IANA timezone: %s", iana_timezone);
