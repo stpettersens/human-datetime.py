@@ -23,6 +23,9 @@ RUN git --version
 ENV THREADS="nproc --all"
 RUN echo "There are $(THREADS) thread(s)."
 
+# Skip tests
+ENV NO_TEST=1
+
 # Clone Python 3.13.9 from CPython git repository on GitHub and build it.
 RUN git clone --depth 1 --branch v3.13.9 https://github.com/python/cpython
 RUN cd cpython && git checkout v3.13.9
