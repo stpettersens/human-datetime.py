@@ -1,0 +1,32 @@
+# Dockerfile to build Python 3.13.9 from source with an Alpine image.
+# This will be used build the libpython3.13.a file used by the other build processes.
+FROM alpine:latest
+
+# Install build dependencies for python and git
+RUN sed -i '2s/^# *//' /etc/apk/repositories
+RUN apk update && apk add --no-cache build-base git
+
+# Create python directory.
+RUN mkdir -p /usr/build/python
+WORKDIR /usr/build/python
+
+# Test gcc installed.
+RUN gcc --version
+
+# Test make installed.
+RUN make --version
+
+# Test git installed.
+RUN git --version
+
+# Get number of CPU threads for make -j flag.
+ENV THREADS=nproc --all
+
+# Clone Python 3.13.9 from CPython git repository on GitHub and build it.
+RUN git clone --depth 1 --branch v3.13.9 https://github.com/python/cpython
+RUN cd cpython && git checkout v3.13.9
+RUN ./configure --prefix=/opt/python/3.13.9 --enable-optimizations
+RUN make -j$(THREADS) && make install
+
+# Keep container running.
+CMD [ "tail", "-f", "/dev/null" ]
