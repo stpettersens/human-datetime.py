@@ -21,6 +21,7 @@ RUN git --version
 
 # Get number of CPU threads for make -j flag.
 ENV THREADS="nproc --all"
+RUN echo "There are $(THREADS) thread(s)."
 
 # Clone Python 3.13.9 from CPython git repository on GitHub and build it.
 RUN git clone --depth 1 --branch v3.13.9 https://github.com/python/cpython
