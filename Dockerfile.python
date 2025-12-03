@@ -25,8 +25,8 @@ ENV THREADS="nproc --all"
 # Clone Python 3.13.9 from CPython git repository on GitHub and build it.
 RUN git clone --depth 1 --branch v3.13.9 https://github.com/python/cpython
 RUN cd cpython && git checkout v3.13.9
-RUN ./configure --prefix=/opt/python/3.13.9 --enable-optimizations
-RUN make -j$(THREADS) && make install
+RUN cd cpython && ./configure --prefix=/opt/python/3.13.9 --enable-optimizations
+RUN cd cpython && make -j$(THREADS) && make install
 
 # Keep container running.
 CMD [ "tail", "-f", "/dev/null" ]
