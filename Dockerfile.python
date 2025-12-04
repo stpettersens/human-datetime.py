@@ -23,7 +23,7 @@ RUN git --version
 RUN git clone --depth 1 --branch v3.13.9 https://github.com/python/cpython
 RUN cd cpython && git checkout v3.13.9
 RUN cd cpython && ./configure --prefix=/opt/python/3.13.9 --enable-optimizations
-RUN cd cpython && make -j$(nproc) profile-opt-no-test
+RUN cd cpython && make -j$(nproc) PROFILE_TASK="" profile-opt
 RUN cd cpython && make install
 
 # Keep container running.
