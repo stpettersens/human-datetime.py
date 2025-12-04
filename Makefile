@@ -21,7 +21,7 @@ python:
 	docker build -f Dockerfile.python -t python_3_13_9_img .
 	docker run --rm --name python3_13_9 -d python_3_13_9_img
 	sleep 15
-	docker cp python3_13_9:/opt/python/3.13.9/libpython3.13.a .
+	docker cp python3_13_9:/opt/python/3.13.9/lib/libpython3.13.a .
 	docker stop python3_13_9
 
 docker: zones
